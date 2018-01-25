@@ -1,0 +1,7 @@
+---
+
+- name: Validate dynamic CF stack config
+  command: >
+    echo {{ sansible_aws_dynamo_db_tmpfile_contents.stdout }} | \
+    python -mjson.tool
+  changed_when: False
