@@ -2,5 +2,22 @@
 
 - name: Converge
   hosts: all
+
   roles:
-    - role: ROLE_NAME
+    - role: aws_dynamo_db
+      sansible_aws_dynamo_db_attribute_definitions:
+        - name: "name"
+          type: "S"
+        - name: "value"
+          type: "S"
+      sansible_aws_dynamo_db_dry_run: yes
+      sansible_aws_dynamo_db_key_schema:
+        - name: "name"
+          key_type: "HASH"
+      sansible_aws_dynamo_db_provisioned_throughput_read: 1
+      sansible_aws_dynamo_db_provisioned_throughput_write: 1
+      sansible_aws_dynamo_db_region: eu-west-1
+      sansible_aws_dynamo_db_stack_name: "test-dynamo-db"
+      sansible_aws_dynamo_db_table_name: "test-dynamo-db"
+      sansible_aws_dynamo_db_tags:
+        Name: "test-dynamo-db"

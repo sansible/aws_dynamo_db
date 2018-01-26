@@ -16,7 +16,6 @@ _check_venv:
 ## Make deps, test
 all: deps test
 
-
 ## Activate the virtualenv
 activate: _check_venv
 	@echo -e "\033[0;32mINFO: Activating venv_ansible$(ANSIBLE_INSTALL_VERSION) (ctrl-d to exit)\033[0m"

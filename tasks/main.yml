@@ -1,1 +1,11 @@
 ---
+
+- name: Setup Dynamo Db
+  include: build.yml
+  tags:
+    - build
+
+- name: Test Dynamo Db assertions
+  include: assert.yml
+  tags:
+    - assert
