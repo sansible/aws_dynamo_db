@@ -1,7 +1,7 @@
 # sansible_aws_dynamo_db
 
-Master: [![Build Status](https://travis-ci.org/sansible/sansible_aws_dynamo_db.svg?branch=master)](https://travis-ci.org/sansible/sansible_aws_dynamo_db)
-Develop: [![Build Status](https://travis-ci.org/sansible/sansible_aws_dynamo_db.svg?branch=develop)](https://travis-ci.org/sansible/sansible_aws_dynamo_db)
+Master: [![Build Status](https://travis-ci.org/sansible/aws_dynamo_db.svg?branch=master)](https://travis-ci.org/sansible/aws_dynamo_db)
+Develop: [![Build Status](https://travis-ci.org/sansible/aws_dynamo_db.svg?branch=develop)](https://travis-ci.org/sansible/aws_dynamo_db)
 
 * [ansible.cfg](#ansible-cfg)
 * [Installation and Dependencies](#installation-and-dependencies)
