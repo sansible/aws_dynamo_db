@@ -20,7 +20,7 @@ To install run `ansible-galaxy install sansible.aws_dynamo_db` or add this to yo
 
 ```YAML
 - name: sansible.aws_dynamo_db
-  version: v1.0
+  version: v2.0
 ```
 
 and run `ansible-galaxy install -p ./roles -r roles.yml`
