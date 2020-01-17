@@ -11,6 +11,10 @@ driver:
 platforms:
   - name: aws-dynamo-db-trusty
     image: ubuntu:trusty
+  - name: aws-dynamo-db-xenial
+    image: ubuntu:xenial
+  - name: aws-dynamo-db-bionic
+    image: ubuntu:bionic
 
 # Ansible is the only supported provisioner.  Configure Ansible options here, change the linter for Ansible playbooks,
 # or modify the playbooks run for the various molecule tasks.

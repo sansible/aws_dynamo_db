@@ -1,7 +1,7 @@
 ---
 
 group: stable
-dist: trusty
+dist: bionic
 sudo: required
 
 language: python
@@ -9,9 +9,8 @@ python:
   - 2.7
 
 env:
-  - ANSIBLE_INSTALL_VERSION=2.2.3.0
-  - ANSIBLE_INSTALL_VERSION=2.3.3.0
-  - ANSIBLE_INSTALL_VERSION=2.4.2.0
+  - ANSIBLE_INSTALL_VERSION=2.9.3
+  - ANSIBLE_INSTALL_VERSION=2.8.8
 
 services:
   - docker

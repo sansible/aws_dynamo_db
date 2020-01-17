@@ -11,16 +11,16 @@
       - sansible_aws_dynamo_db_stack_name is not none
       - sansible_aws_dynamo_db_tags is not none
 
-# TODO switch to tempfile module in Ansible 2.3+
 - name: Create a temp file for storing the generated template
-  command: mktemp
+  tempfile:
+    state: file
   register: sansible_aws_dynamo_db_tmpfile
   changed_when: False
 
 - name: Generate the dynamic CF stack config
   template:
     src: aws_dynamo_db.json.j2
-    dest: "{{ sansible_aws_dynamo_db_tmpfile.stdout }}"
+    dest: "{{ sansible_aws_dynamo_db_tmpfile.path }}"
   register: sansible_aws_dynamo_db_template
   changed_when: False
 
@@ -30,18 +30,18 @@
     state: present
     region: "{{ sansible_aws_dynamo_db_region }}"
     tags: "{{ sansible_aws_dynamo_db_tags }}"
-    template: "{{ sansible_aws_dynamo_db_tmpfile.stdout }}"
+    template: "{{ sansible_aws_dynamo_db_tmpfile.path }}"
     template_parameters:
       ProvisionedThroughputRead: "{{ sansible_aws_dynamo_db_provisioned_throughput_read }}"
       ProvisionedThroughputWrite: "{{ sansible_aws_dynamo_db_provisioned_throughput_write }}"
   register: sansible_aws_dynamo_db_data
-  until: sansible_aws_dynamo_db_data | success
+  until: sansible_aws_dynamo_db_data is success
   retries: "{{ sansible_aws_dynamo_db_default_retries }}"
   delay: "{{ sansible_aws_dynamo_db_default_delay }}"
   when: not sansible_aws_dynamo_db_dry_run
 
 - name: Grab Dynamo DB CF template contents
-  command: "cat {{ sansible_aws_dynamo_db_tmpfile.stdout }}"
+  command: "cat {{ sansible_aws_dynamo_db_tmpfile.path }}"
   register: sansible_aws_dynamo_db_tmpfile_contents
   changed_when: False
   when: sansible_aws_dynamo_db_dry_run
@@ -53,6 +53,6 @@
 
 - name: Cleanup Dynamo DB CF template file
   file:
-    path: "{{ sansible_aws_dynamo_db_tmpfile.stdout }}"
+    path: "{{ sansible_aws_dynamo_db_tmpfile.path }}"
     state: absent
   changed_when: False
