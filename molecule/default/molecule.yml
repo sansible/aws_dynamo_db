@@ -9,8 +9,6 @@ driver:
 # See https://molecule.readthedocs.io/en/latest/configuration.html#platforms for details.
 # NOTE: Different drivers (see above) may have different configuration options.
 platforms:
-  - name: aws-dynamo-db-trusty
-    image: ubuntu:trusty
   - name: aws-dynamo-db-xenial
     image: ubuntu:xenial
   - name: aws-dynamo-db-bionic
