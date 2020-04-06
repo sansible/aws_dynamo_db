@@ -1,7 +1,10 @@
 ---
 
 - name: Converge
-  hosts: all
+  hosts: localhost
+
+  environment:
+    EC2_URL: http://localhost:4566
 
   roles:
     - role: aws_dynamo_db
@@ -10,7 +13,6 @@
           type: "S"
         - name: "value"
           type: "S"
-      sansible_aws_dynamo_db_dry_run: yes
       sansible_aws_dynamo_db_key_schema:
         - name: "name"
           key_type: "HASH"

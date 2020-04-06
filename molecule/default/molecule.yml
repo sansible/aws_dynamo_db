@@ -4,18 +4,26 @@ driver:
   name: docker
 
 platforms:
-  - name: aws-dynamo-db-xenial
-    image: ubuntu:xenial
-  - name: aws-dynamo-db-bionic
-    image: ubuntu:bionic
+  - name: aws-dynamo-db-localstack
+    env:
+      DEBUG: "1"
+      SERVICES: cloudformation,dynamodb
+    image: localstack/localstack:0.11.0
+    exposed_ports:
+      - 4566/tcp
+    published_ports:
+      - 0.0.0.0:4566:4566/tcp
 
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      hash_behaviour: merge
+  env:
+    AWS_ACCESS_KEY_ID: foobar
+    AWS_DEFAULT_REGION: foobar
+    AWS_SECRET_ACCESS_KEY: foobar
   lint:
     name: ansible-lint
+  options:
+    vvv: True
 
 lint:
   name: yamllint

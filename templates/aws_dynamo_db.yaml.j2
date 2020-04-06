@@ -1,0 +1,55 @@
+#jinja2: lstrip_blocks: "true"
+---
+
+Description: {{ sansible_aws_dynamo_db_table_name | replace("_", " ") | replace("-", " ") | title }} Dynamo DB table
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  ProvisionedThroughputRead:
+    Description: Read items per second
+    Default: 1
+    Type: Integer
+  ProvisionedThroughputWrite:
+    Description: Write items per second
+    Default: 1
+    Type: Integer
+
+Resources:
+  DynamoDbTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+{% for attribute_definition in sansible_aws_dynamo_db_attribute_definitions %}
+        - AttributeName: {{ attribute_definition.name }}
+          AttributeType: {{ attribute_definition.type }}
+{% endfor %}
+      KeySchema:
+{% for key_schema in sansible_aws_dynamo_db_key_schema %}
+        - AttributeName: {{ key_schema.name }}
+          KeyType: {{ key_schema.key_type }}
+{% endfor %}
+{% if sansible_aws_dynamo_db_time_to_live_specification_attribute_enabled %}
+      TimeToLiveSpecification:
+        AttributeName: {{ sansible_aws_dynamo_db_time_to_live_specification_attribute }}
+        Enabled: true
+{% endif %}
+{% if sansible_aws_dynamo_db_key_schema %}
+      TableName: {{ sansible_aws_dynamo_db_table_name }}
+{% endif %}
+      ProvisionedThroughput:
+        ReadCapacityUnits:
+          Ref: ProvisionedThroughputRead
+        WriteCapacityUnits:
+          Ref: ProvisionedThroughputWrite
+
+Outputs:
+  DynamoDbTableArn:
+    Description: Dynamo DB Table ARN
+    Value:
+      Fn::GetAtt:
+        - DynamoDbTable
+        - Arn
+  DynamoDbTableId:
+    Description: Dynamo DB Table Instance ID
+    Value:
+      Ref: DynamoDbTable

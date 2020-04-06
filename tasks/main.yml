@@ -1,11 +1,27 @@
 ---
 
-- name: Setup Dynamo Db
-  include: build.yml
-  tags:
-    - build
+- name: Assert Dynamo DB configuration
+  assert:
+    that:
+      - sansible_aws_dynamo_db_attribute_definitions is not none
+      - sansible_aws_dynamo_db_key_schema is not none
+      - sansible_aws_dynamo_db_provisioned_throughput_read is not none
+      - sansible_aws_dynamo_db_provisioned_throughput_write is not none
+      - sansible_aws_dynamo_db_region is not none
+      - sansible_aws_dynamo_db_stack_name is not none
+      - sansible_aws_dynamo_db_tags is not none
 
-- name: Test Dynamo Db assertions
-  include: assert.yml
-  tags:
-    - assert
+- debug:
+    msg: "{{ lookup('template', '../templates/aws_dynamo_db.yaml.j2') }}"
+
+- name: Ensures Dynamo DB stack
+  cloudformation:
+    stack_name: "{{ sansible_aws_dynamo_db_stack_name }}"
+    state: present
+    region: "{{ sansible_aws_dynamo_db_region }}"
+    tags: "{{ sansible_aws_dynamo_db_tags }}"
+    template_body: "{{ lookup('template', '../templates/aws_dynamo_db.yaml.j2') }}"
+    template_parameters:
+      ProvisionedThroughputRead: "{{ sansible_aws_dynamo_db_provisioned_throughput_read | to_json }}"
+      ProvisionedThroughputWrite: "{{ sansible_aws_dynamo_db_provisioned_throughput_write | to_json }}"
+  register: sansible_aws_dynamo_db_data
