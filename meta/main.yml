@@ -4,8 +4,8 @@ galaxy_info:
   author: Sansible
   description: Creates a Dynamo DB table via Cloudformation
   license: MIT
-  min_ansible_version: 2.8
-  min_ansible_container_version: 2.8
+  min_ansible_version: 2.7
+  min_ansible_container_version: 2.7
   platforms:
     - name: Ubuntu
       versions:
