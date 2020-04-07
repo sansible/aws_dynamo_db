@@ -63,10 +63,6 @@ test: .venv_ansible$(ANSIBLE_INSTALL_VERSION)
 
 ## Create virtualenv, install dependencies
 .venv_ansible$(ANSIBLE_INSTALL_VERSION):
-	@if (python -V 2>&1 | grep -qv "Python 2.7"); then \
-		echo -e "\033[0;31mERROR: Only Python 2.7 is supported at this stage\033[0m"; \
-		false; \
-	fi
 	virtualenv .venv_ansible$(ANSIBLE_INSTALL_VERSION)
 	.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/pip install -r requirements.txt --ignore-installed
 	.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/pip install ansible==$(ANSIBLE_INSTALL_VERSION)

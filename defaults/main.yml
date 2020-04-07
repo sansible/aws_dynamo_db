@@ -1,9 +1,7 @@
 ---
 
 sansible_aws_dynamo_db_attribute_definitions: []
-sansible_aws_dynamo_db_default_delay: 30
-sansible_aws_dynamo_db_default_retries: 2
-sansible_aws_dynamo_db_dry_run: no
+sansible_aws_dynamo_db_billing_mode: PAY_PER_REQUEST
 sansible_aws_dynamo_db_key_schema: []
 sansible_aws_dynamo_db_provisioned_throughput_read: ~
 sansible_aws_dynamo_db_provisioned_throughput_write: ~
