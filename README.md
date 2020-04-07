@@ -5,13 +5,9 @@ Develop: [![Build Status](https://travis-ci.org/sansible/aws_dynamo_db.svg?branc
 
 * [ansible.cfg](#ansible-cfg)
 * [Installation and Dependencies](#installation-and-dependencies)
-* [Tags](#tags)
 * [Examples](#examples)
 
 This role provisions a Dynamo DB table via Cloudformation.
-
-
-
 
 ## Installation and Dependencies
 
@@ -20,23 +16,10 @@ To install run `ansible-galaxy install sansible.aws_dynamo_db` or add this to yo
 
 ```YAML
 - name: sansible.aws_dynamo_db
-  version: v2.0
+  version: v3.0
 ```
 
 and run `ansible-galaxy install -p ./roles -r roles.yml`
-
-
-
-
-## Tags
-
-This role uses tags: **build** and **assert**
-
-* `build` - Provisions a Dynamo DB table
-* `assert` - Checks that the JSON template used for CloudFormation is valid
-
-
-
 
 ## Examples
 
@@ -82,6 +65,7 @@ like so:
           type: "S"
         - name: "value"
           type: "S"
+      sansible_aws_dynamo_db_billing_mode: PROVISIONED
       sansible_aws_dynamo_db_key_schema:
         - name: "name"
           key_type: "HASH"
